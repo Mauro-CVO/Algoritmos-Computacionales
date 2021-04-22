@@ -37,19 +37,37 @@ def run():
 
     #x_1 = B*x_0 + d
     #error_x = fact_error*al.norm(x_1-x_0)
-
-    for i in range(int(input('numero de iteraciones: '))):
-        if i == 0:
-            x_old = x_0
+    
+    #for i in range(int(input('numero de iteraciones: '))):
+    #    if i == 0:
+    #        x_old = x_0
+    #        x_new = B*x_old + d
+    #    else:
+    #        x_old = x_new
+    #        x_new = B*x_old + d
+    #    print(x_new)
+    #    error_x = fact_error*al.norm(x_new-x_old)
+    #    print("Error de aprox:", error_x)
+    #    print("----" * 20)
+    
+    #-----------------------------------------------------------#
+    epsilon = 1e-4
+    error_x = 1000
+    k = 0
+    print(epsilon)
+    while k < 100 and epsilon < error_x:
+        print(k)
+        if k == 0:
+            x_old = x_0   
             x_new = B*x_old + d
         else:
             x_old = x_new
             x_new = B*x_old + d
+        k += 1
         print(x_new)
         error_x = fact_error*al.norm(x_new-x_old)
         print("Error de aprox:", error_x)
-        print("----" * 10)
-
+        print("----" * 20)
 
     
 
