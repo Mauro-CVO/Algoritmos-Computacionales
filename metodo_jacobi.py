@@ -1,6 +1,9 @@
 import numpy as np
 from numpy import linalg as al
 
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
+
 def factor_error(norm_B):
     return norm_B/(1-norm_B)
 
@@ -51,8 +54,10 @@ def run():
     #    print("----" * 20)
     
     #-----------------------------------------------------------#
-    epsilon = 1e-4
+    epsilon = 1e-2
     error_x = 1000
+    vect_lst = [x_0]
+    error_lst = []
     k = 0
     print(epsilon)
     while k < 100 and epsilon < error_x:
@@ -64,12 +69,23 @@ def run():
             x_old = x_new
             x_new = B*x_old + d
         k += 1
+        vect_lst.append(x_new)
         print(x_new)
         error_x = fact_error*al.norm(x_new-x_old)
+        error_lst.append(error_x)
         print("Error de aprox:", error_x)
         print("----" * 20)
+    error_lst.append(0)
 
-    
+    #error_lst /= np.max(error_lst)
+
+    #fig = plt.figure()
+    #ax = plt.axes(projection = '3d')
+    #for i in range(len(vect_lst)):
+    #    p = vect_lst[i]
+    #    ax.scatter3D(p[0,0],p[1,0],p[2,0]), color =(0.5,0.5,0.5)
+    #    ax.text(p[0,0],p[1,0],p[2,0], str(i))
+    #plt.show()
 
 if __name__ == '__main__':
     run()
