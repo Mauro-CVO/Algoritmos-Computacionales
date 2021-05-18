@@ -14,7 +14,6 @@ def sum_matrix(m1,m2):
             rows.append(m1[i][j]+m2[i][j])
         new_matrix.append(rows)
 
-    #print(new_matrix)
     return new_matrix
 
 def augmented_matrix(m):
@@ -28,13 +27,11 @@ def augmented_matrix(m):
     return z
 
 def zero_augmented(m):
-    augmented = np.zeros((len(m),len(m)*2))
-    return augmented
-
+    return np.zeros((len(m),len(m)*2))
 
 def gauss_elimination(m,n):
     for i in range(n):
-        assert m[i][i] != 0.0, "No se puede dividir por cero."
+        assert m[i][i] != 0.0, "No se puede obtener la matriz inversa por este método."
             
         for j in range(n):
             if i != j:
@@ -60,21 +57,20 @@ def inverse_part(m,n):
     return inverse
 
 def inverse_matrix(m):
+    m_original = np.copy(np.array(m))
     m_order = len(m)
     m = augmented_matrix(m)
     m = gauss_elimination(m,m_order)
     m = inverse_part(m,m_order)
     m = np.array(m)
     print("---"*30)
+    print('matriz Original:')
+    print(m_original)
+    print("---"*30)
     print('matriz inversa:')
     print(m)
     print("---"*30)
     return m
-
-def verification(m,inv_m):
-    m = np.array(m)
-    inv_m = np.array(inv_m)
-    return np.dot(m,inv_m)
 
 def run():
     D =[[2,0,0],
@@ -88,7 +84,8 @@ def run():
     D_L = sum_matrix(L,D)
     inv_D_L = inverse_matrix(D_L)
     print('A * inv_A:')
-    print(verification(D_L,inv_D_L))
+    print(np.dot(np.array(D_L),np.array(inv_D_L)))
+    print("---"*30)
 
 
 if __name__ == '__main__':
